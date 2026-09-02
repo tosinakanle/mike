@@ -36,16 +36,11 @@ export function SiteLogo({
 
     const logo = (
         <h1
-            className={`flex items-center gap-1.5 ${sizeClasses[size]} font-light font-serif ${
+            className={`flex items-center gap-1.5 ${sizeClasses[size]} font-medium font-serif tracking-tight text-emerald-950 ${
                 animate ? "sidebar-fade-in" : ""
             } ${className}`}
         >
-            <span
-                className={`inline-flex shrink-0 items-center leading-none ${iconClassName}`}
-            >
-                <MikeIcon size={iconSizes[size]} />
-            </span>
-            <span>Mike</span>
+            <span>LexNigeriana AI</span>
         </h1>
     );
 

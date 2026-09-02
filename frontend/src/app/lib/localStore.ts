@@ -56,6 +56,25 @@ export function saveStoredChat(chat: StoredChat) {
     fs.writeFileSync(CHATS_FILE, JSON.stringify(chats, null, 2), "utf-8");
 }
 
+export function updateStoredChat(
+    id: string,
+    updates: Partial<StoredChat>
+): StoredChat | null {
+    ensureDataDir();
+    const chats = getStoredChats();
+    const index = chats.findIndex((c) => c.id === id);
+    if (index >= 0) {
+        chats[index] = {
+            ...chats[index],
+            ...updates,
+            updated_at: new Date().toISOString(),
+        };
+        fs.writeFileSync(CHATS_FILE, JSON.stringify(chats, null, 2), "utf-8");
+        return chats[index];
+    }
+    return null;
+}
+
 export function deleteStoredChat(id: string) {
     ensureDataDir();
     const chats = getStoredChats().filter((c) => c.id !== id);

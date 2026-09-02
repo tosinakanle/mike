@@ -39,15 +39,24 @@ export function ResponseStatus({ status }: { status: StatusState }) {
         };
     }, [isActive]);
 
+    if (!isActive && !isError) {
+        return null;
+    }
+
     return (
-        <div className="w-full h-9 flex items-center mb-2">
-            <MikeIcon
-                spin={isActive}
-                done={showDone && doneVisible}
-                error={isError}
-                mike={!isError && !(showDone && doneVisible)}
-                size={22}
-            />
+        <div className="w-full h-8 flex items-center mb-1">
+            {isActive && (
+                <div className="flex items-center gap-2 text-xs text-neutral-500 font-sans select-none">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                    <span>Analyzing jurisprudence...</span>
+                </div>
+            )}
+            {isError && (
+                <div className="flex items-center gap-2 text-xs text-red-600 font-sans select-none">
+                    <span className="w-2 h-2 rounded-full bg-red-600" />
+                    <span>Error generating response</span>
+                </div>
+            )}
         </div>
     );
 }

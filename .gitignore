@@ -36,3 +36,4 @@ backend/supabase/*
 
 frontend/data/*.json
 !frontend/data/.gitkeep
+.env*

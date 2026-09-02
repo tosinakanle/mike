@@ -18,6 +18,8 @@ import type { ApiKeyState } from "../lib/mikeApi";
  */
 export function isAllowedModelId(id: string): boolean {
     return (
+        id === "auto" ||
+        id.startsWith("auto/") ||
         ALLOWED_MODEL_IDS.has(id) ||
         id.startsWith("ollama/") ||
         ROUTER_SLUGS.some((slug) => id.startsWith(`${slug}/`))
@@ -68,7 +70,7 @@ function usableStoredModel(
 export function useSelectedModel(
     sources: SelectedModelSources = {},
 ): [string, (id: string) => void] {
-    const [model, setModelState] = useState("");
+    const [model, setModelState] = useState("auto");
     const manuallySelected = useRef(false);
     const previousSelectionKey = useRef(sources.selectionKey);
     const openRouterModels = sources.routerSelections?.openRouterModels;
@@ -114,7 +116,7 @@ export function useSelectedModel(
         ) {
             // Existing chat settings have not loaded yet. Do not flash the
             // profile fallback before the chat's own selection arrives.
-            setModelState("");
+            setModelState("auto");
             return;
         }
         const next =
@@ -123,7 +125,7 @@ export function useSelectedModel(
                 selectionSources.lastSelectedModel,
                 selectionSources,
             ) ??
-            "";
+            "auto";
         setModelState(next);
     }, [selectionSources]);
     /* eslint-enable react-hooks/set-state-in-effect */

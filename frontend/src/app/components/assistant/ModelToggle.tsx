@@ -15,7 +15,16 @@ import { useOllamaModels } from "@/app/hooks/useOllamaModels";
 export type ModelOption = ModelToggleOption;
 export type { ReasoningLevel };
 
+export const OMNIROUTE_MODELS: ModelOption[] = [
+  { id: "auto", label: "Auto (Optimal Legal AI)", group: "Legal Intelligence" },
+  { id: "auto/best-coding", label: "Legal Document Drafter", group: "Legal Intelligence" },
+  { id: "auto/best-reasoning", label: "Deep Jurisprudential Reasoning", group: "Legal Intelligence" },
+  { id: "auto/best-fast", label: "Fast Legal Research", group: "Legal Intelligence" },
+  { id: "auto/best-vision", label: "Document & Visual Review", group: "Legal Intelligence" },
+];
+
 export const MODELS: ModelOption[] = [
+  ...OMNIROUTE_MODELS,
   { id: "claude-fable-5", label: "Claude Fable 5", group: "Anthropic" },
   { id: "claude-opus-5", label: "Claude Opus 5", group: "Anthropic" },
   { id: "claude-sonnet-5", label: "Claude Sonnet 5", group: "Anthropic" },
@@ -51,10 +60,10 @@ export const SETTINGS_MODELS: ModelOption[] = [
   { id: "gpt-5.4-mini", label: "GPT-5.4 Mini", group: "OpenAI" },
 ];
 
-for (const model of MODELS) model.source = "Direct";
+for (const model of MODELS) model.source = model.source ?? "Direct";
 for (const model of SETTINGS_MODELS) model.source ??= "Direct";
 
-export const DEFAULT_MODEL_ID = "";
+export const DEFAULT_MODEL_ID = "auto";
 
 export const ALLOWED_MODEL_IDS = new Set(MODELS.map((m) => m.id));
 
@@ -256,7 +265,7 @@ export function ModelToggle({
     })),
   ];
   const availableModels = models.filter((model) => {
-    if (model.group === "Local") return true;
+    if (model.group === "Legal Intelligence" || model.group === "OmniRoute" || model.group === "Local") return true;
     if (apiKeysLoading) return false; // nothing offered until known
     if (!apiKeys) return true; // unknown after a failed load → fail open
     return isModelAvailable(model.id, apiKeys);

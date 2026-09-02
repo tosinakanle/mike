@@ -15,10 +15,10 @@ const ebGaramond = EB_Garamond({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://app.mikeoss.com"),
-    title: "Mike - AI Legal Platform",
+    metadataBase: new URL("https://app.lexnigeriana.com"),
+    title: "LexNigeriana AI - Legal Intelligence Platform",
     description:
-        "AI-powered legal document analysis and contract review platform.",
+        "AI-powered Nigerian legal intelligence, document analysis, and jurisprudence platform.",
     icons: {
         icon: [
             { url: "/icon.svg", type: "image/svg+xml" },
@@ -28,25 +28,25 @@ export const metadata: Metadata = {
     },
     openGraph: {
         type: "website",
-        url: "https://app.mikeoss.com",
-        siteName: "Mike",
-        title: "Mike - AI Legal Platform",
+        url: "https://app.lexnigeriana.com",
+        siteName: "LexNigeriana AI",
+        title: "LexNigeriana AI - Legal Intelligence Platform",
         description:
-            "AI-powered legal document analysis and contract review platform.",
+            "AI-powered Nigerian legal intelligence, document analysis, and jurisprudence platform.",
         images: [
             {
                 url: "/link-image.jpg",
                 width: 1200,
                 height: 651,
-                alt: "Mike",
+                alt: "LexNigeriana AI",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Mike - AI Legal Platform",
+        title: "LexNigeriana AI - Legal Intelligence Platform",
         description:
-            "AI-powered legal document analysis and contract review platform.",
+            "AI-powered Nigerian legal intelligence, document analysis, and jurisprudence platform.",
         images: ["/link-image.jpg"],
     },
 };

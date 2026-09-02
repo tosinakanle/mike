@@ -5,6 +5,7 @@ import {
 import type { ApiKeyState } from "@/app/lib/mikeApi";
 
 export type ModelProvider =
+    | "omniroute"
     | "claude"
     | "gemini"
     | "openai"
@@ -14,12 +15,13 @@ export type ModelProvider =
     | "ollama";
 
 export function getModelProvider(modelId: string): ModelProvider | null {
+    if (modelId === "auto" || modelId.startsWith("auto/")) return "omniroute";
     if (modelId.startsWith("ollama/")) return "ollama"; // dynamic, not in the static list
     if (modelId.startsWith("openrouter/")) return "openrouter";
     if (modelId.startsWith("vercel/")) return "vercel";
     if (modelId.startsWith("opencode-go/")) return "opencode-go";
     const model = SETTINGS_MODELS.find((m) => m.id === modelId);
-    if (!model) return null;
+    if (!model) return "omniroute";
     return modelGroupToProvider(model.group);
 }
 
@@ -27,8 +29,9 @@ export function isModelAvailable(
     modelId: string,
     apiKeys: ApiKeyState,
 ): boolean {
+    if (modelId === "auto" || modelId.startsWith("auto/")) return true;
     const provider = getModelProvider(modelId);
-    if (!provider) return false;
+    if (!provider || provider === "omniroute") return true;
     return isProviderAvailable(provider, apiKeys);
 }
 
@@ -36,11 +39,12 @@ export function isProviderAvailable(
     provider: ModelProvider,
     apiKeys: ApiKeyState,
 ): boolean {
-    if (provider === "ollama") return true; // local, no key needed
+    if (provider === "omniroute" || provider === "ollama") return true; // managed backend, ready
     return !!apiKeys[provider]?.configured;
 }
 
 export function providerLabel(provider: ModelProvider): string {
+    if (provider === "omniroute") return "OmniRoute AI Gateway";
     if (provider === "claude") return "Anthropic (Claude)";
     if (provider === "openai") return "OpenAI";
     if (provider === "openrouter") return "OpenRouter";
@@ -53,6 +57,7 @@ export function providerLabel(provider: ModelProvider): string {
 export function modelGroupToProvider(
     group: ModelOption["group"],
 ): ModelProvider {
+    if (group === "Legal Intelligence" || group === "OmniRoute") return "omniroute";
     if (group === "Anthropic") return "claude";
     if (group === "OpenAI") return "openai";
     if (group === "OpenRouter") return "openrouter";

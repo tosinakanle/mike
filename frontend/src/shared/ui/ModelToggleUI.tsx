@@ -87,6 +87,7 @@ export function nearestReasoningLevelForModel(
 }
 
 export const MODEL_TOGGLE_GROUPS: readonly ModelToggleGroup[] = [
+  "Legal Intelligence",
   "Anthropic",
   "Google",
   "OpenAI",

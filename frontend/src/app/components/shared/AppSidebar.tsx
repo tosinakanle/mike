@@ -273,13 +273,12 @@ export function AppSidebar({ isOpen, onToggle }: AppSidebarProps) {
                                 href="/assistant"
                                 className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
                             >
-                                <MikeIcon size={22} />
                                 <span
-                                    className={`text-2xl font-light font-serif ${
+                                    className={`text-lg font-medium font-serif tracking-tight text-emerald-950 ${
                                         shouldAnimate ? "sidebar-fade-in" : ""
                                     }`}
                                 >
-                                    Mike
+                                    LexNigeriana AI
                                 </span>
                             </Link>
                         </div>

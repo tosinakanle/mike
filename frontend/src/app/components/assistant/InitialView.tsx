@@ -178,33 +178,12 @@ export function InitialView({ onSubmit }: InitialViewProps) {
     return (
         <div className="grid h-full w-full grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] px-6">
             <div className="flex min-h-0 items-end justify-center pb-6">
-                <div className="relative h-10 w-full max-w-4xl px-0 xl:px-8">
-                    <div
-                        className="absolute h-[30px] w-[30px]"
-                        style={{
-                            left: "50%",
-                            top: "50%",
-                            transform: loaded
-                                ? `translate(calc(-50% - ${iconOffset}px), -50%)`
-                                : "translate(-50%, -50%)",
-                            transition:
-                                "transform 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                        }}
-                    >
-                        <MikeIcon size={ICON_SIZE} />
-                    </div>
+                <div className="flex items-center justify-center h-10 w-full max-w-4xl px-0 xl:px-8">
                     <h1
                         ref={textRef}
-                        className="absolute text-4xl font-serif font-light text-gray-900 whitespace-nowrap"
+                        className="text-4xl font-serif font-light text-gray-900 whitespace-nowrap text-center transition-opacity duration-500"
                         style={{
-                            left: "50%",
-                            top: "50%",
-                            transform: loaded
-                                ? `translate(calc(-50% + ${textOffset}px), -50%)`
-                                : "translate(-50%, -50%)",
                             opacity: loaded ? 1 : 0,
-                            transition:
-                                "transform 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 800ms ease-in-out 300ms",
                         }}
                     >
                         Hi, {username}

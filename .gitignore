@@ -33,3 +33,6 @@ backend/supabase/*
 .current-issue.md
 .implementation-plan.md
 .implement-config
+
+frontend/data/*.json
+!frontend/data/.gitkeep
